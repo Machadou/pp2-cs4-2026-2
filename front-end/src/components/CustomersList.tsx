@@ -1,12 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Customer } from "../types/Customer";
-
-type CustomerListProps = {
-  list?: Customer[];
-};
 
 export function CustomersList() {
   const [customers, setCustomers] = useState<Customer[]>([]);
+
   // Esta função está marcada com `async` porque, dentro dela,
   // há uma ou mais instruções assíncronas, isto é, que podem
   // ser executadas fora da ordem esperada, devido, por exemplo,
@@ -52,9 +49,21 @@ export function CustomersList() {
     }
   }
 
+  // Hook useEffect()
+  // UM DETALHE EXTREMAMENTE IMPORTANTE é o vetor vazio ([]) no
+  // segundo parâmetro. Ele é chamado VETOR DE DEPENDÊNCIAS. O vetor
+  // vazio, neste caso, indica que o useEffect() deverá ser
+  // executado apenas uma vez, quando o componente estiver sendo
+  // carregado na tela, para chamar fetchData().
+
+  // CORREÇÃO: Adicionadas as chaves {} para evitar o retorno da Promise
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
-      <p className="text-secondary">Total de clientes: {length}</p>
+      <p className="text-secondary">Total de clientes: {customers.length}</p>
 
       <div className="table-responsive">
         <table className="table table-striped table-hover align-middle">

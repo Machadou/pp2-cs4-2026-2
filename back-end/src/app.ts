@@ -7,7 +7,15 @@ import usersRouter from "./routes/users";
 import customersRouter from "./routes/customers";
 import carsRouter from "./routes/cars";
 
+import cors from "cors";
+
 const app = express();
+
+app.use(
+  cors({
+    origin: (process.env.ALLOWED_ORIGINS as string).split(","),
+  }),
+);
 
 app.use(logger("dev"));
 app.use(json());
