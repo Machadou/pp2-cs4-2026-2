@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import type { Customer } from "../types/Customer";
+import { Link } from "react-router";
 
 export function CustomersList() {
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -67,6 +68,12 @@ export function CustomersList() {
 
       <p className="text-secondary">Total de clientes: {customers.length}</p>
 
+      <div className="text-end mb-3">
+        <Link to={`/customers/new`} className="btn btn-outline-primary">
+          Novo cliente
+        </Link>
+      </div>
+
       <div className="table-responsive">
         <table className="table table-striped table-hover align-middle">
           <thead className="table-dark">
@@ -78,6 +85,9 @@ export function CustomersList() {
               <th scope="col">Telefone</th>
               <th scope="col">Município</th>
               <th scope="col">UF</th>
+              <th scope="col" className="text-end">
+                Ações
+              </th>
             </tr>
           </thead>
 
@@ -91,6 +101,15 @@ export function CustomersList() {
                 <td>{customer.phone}</td>
                 <td>{customer.municipality}</td>
                 <td>{customer.state}</td>
+                <td className="text-end">
+                  <Link
+                    to={`/customers/${customer.id}`}
+                    className="btn btn-outline-primary"
+                    aria-label={`Editar cliente ${customer.name}`}
+                  >
+                    Editar
+                  </Link>
+                </td>
               </tr>
             ))}
 
